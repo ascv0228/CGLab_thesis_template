@@ -1,0 +1,120 @@
+\hspace{24pt}
+
+Add your introduction here.
+
+\section{Mathematic Symbols}
+% *** mathematic symbols (use dollar sign to wrap it)***
+$C_t$ example of sub
+$C^t$ example of power
+% more symbols in latex : https://en.wikipedia.org/wiki/Wikipedia:LaTeX_symbols
+
+\section{Equation}
+% *** example of equation ***
+Below is equation~\ref{eq:example}.
+\begin{eqnarray}
+        C_t=\{x|x \in P \wedge D(t,x) \leq \delta \wedge A(x) > 0 \}.
+        \label{eq:example}
+\end{eqnarray}
+% more about equation in latex :  https://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics
+
+\section{Step lists}
+\begin{description}
+    \item [Step 1.] balabala
+    \item [Step 2.] balabala
+\end{description}
+
+\section{Algorithm}
+% *** example of algorithm ***
+% require \usepackage{algorithm}
+We proposed algorithm ~\ref{algorithm:example}.
+
+
+\begin{algorithm}[H]
+    \caption{Standard RANSAC-PnP Method Based on for Outlier Rejection}
+    \label{algorithm:example}
+    % \small % 縮小演算法字體，進一步節省空間
+    \begin{algorithmic}[1]
+         % === 在這裡加入這三行來壓縮行與行的上下間距 ===
+        \setlength{\itemsep}{1pt}       % 調整每個步驟之間的垂直距離
+        \setlength{\parsep}{0pt}        % 調整段落之間的距離
+        \linespread{0.9}\selectfont     % 稍微壓縮文字本身的行高（可依需求改 0.85 或 0.95）
+        % ===========================================
+        \Require 2D--3D correspondences $\{(x_i, X_i)\}_{i=1}^{N}$,
+                 camera intrinsic matrix $K$,
+                 reprojection threshold $\tau$,
+                 maximum iterations $M$
+        \Ensure Best pose $(R,t)$ and inlier set $\mathcal{I}$
+
+        \State $bestInliers \gets \emptyset$
+        \State $bestPose \gets \emptyset$
+
+        \For{$k = 1$ to $M$}
+            \State Randomly select a minimal subset of correspondences
+            \State Estimate pose $(R,t)$ using PnP
+            \State $\mathcal{I} \gets \emptyset$
+
+            \For{each correspondence $(x_i, X_i)$}
+                % 將公式直接合併到 \State 中，改用 $ ... $
+                \State Project $X_i$ onto the image: $\hat{x}_i = \pi(K,R,t,X_i)$
+                \State Compute reprojection error: $e_i = \|x_i-\hat{x}_i\|$
+
+                \If{$e_i < \tau$}
+                    \State Add $(x_i,X_i)$ to $\mathcal{I}$
+                \EndIf
+            \EndFor
+
+            \If{$|\mathcal{I}| > |bestInliers|$}
+                \State $bestInliers \gets \mathcal{I}$
+                \State $bestPose \gets (R,t)$
+            \EndIf
+        \EndFor
+        \State Re-estimate $(R,t)$ using all correspondences in $bestInliers$
+        \State \Return $bestPose$, $bestInliers$
+    \end{algorithmic}
+\end{algorithm}
+% more about algorithm in latex : https://en.wikibooks.org/wiki/LaTeX/Algorithms (Typesetting using the algorithmicx package)
+% http://ftp.yzu.edu.tw/CTAN/macros/latex/contrib/algorithms/algorithms.pdf
+
+\section{Label} \label{subsec: labelName}
+This is Section~\ref{subsec: labelName}.
+
+\section{Reference}
+Professor Tsai published many good papers~\cite{TsaimhPaper}.
+
+\section{Subsection}
+\subsection{one}
+
+
+\section{Table}
+% *** Table ***
+Table~\ref{tab:example} is a 3 x 3 table.
+\begin{table}[h] 
+    \normalsize
+    \caption{Table Example} 
+    \begin{center} 
+        \label{tab:example} 
+        \begin{tabular}{ | l | c || r |}
+            % use | to draw the vertical line
+            % use \hline to draw horizontal line
+            \hline
+            1 & 2 & 3 \\ \hline\hline
+            4 & 5 & 6 \\ \hline
+            7 & 8 & 9 \\ 
+            \hline
+        \end{tabular} 
+    \end{center} 
+\end{table}
+% more about table in latex :  https://en.wikibooks.org/wiki/LaTeX/Tables
+
+\section{Figure}
+% *** figure ***
+Figure~\ref{fig:introduction_overview} is flowchart.
+
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{images/introduction_overview.jpg}
+    \end{center}
+    \caption{整體架構圖}
+    \label{fig:introduction_overview}
+\end{figure}

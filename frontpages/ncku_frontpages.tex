@@ -1,0 +1,350 @@
+%% // nckuee.sty 定義 // cbj
+
+% 論文頁編輯: 於 class/ncku_style.sty 之中
+% 產生論文封面 (無浮水印)
+\nckuEEtitlepage
+% 產生論文封面 (浮水印)
+% \nckuEEwatermarktitlepage
+% 產生口試委員會簽名單
+%\nckuEEoralpage
+% 產生口試委員簽名單(en)
+%\nckuEEenoralpage
+
+%\newpage
+%\setcounter{page}{1}
+%\pagenumbering{roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       封面內頁
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % unmark to add inner cover
+%\newpage
+%\thispagestyle{empty}
+%\thispagestyle{EmptyWaterMarkPage}
+%\nckuEEtitlepage
+
+
+\includepdf[
+    pages=1,
+    pagecommand={\thispagestyle{empty}},
+    fitpaper=true
+]{frontpages/SCAN.pdf}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       中文摘要
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 可以利用如下自定義的command (定義在nckuee.sty)
+% ======
+%\begin{zhAbstract}  %中文摘要
+%\input{frontpages/front_cabstract.tex} % // 可以引入front_cabstract.tex檔案或在此編輯 // cbj
+%\end{zhAbstract}
+
+% ...等
+% ======
+
+% 在此直接定義如下
+%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       中文摘要
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+% 頁碼從中文摘要開始
+\setcounter{page}{1}
+\pagenumbering{roman}
+
+% 中文摘要加入目錄
+\phantomsection
+\addcontentsline{toc}{chapter}{\nameCabstract}
+
+
+% ############################################################
+% ##### 中文摘要格式開始：所有設定只作用於中文摘要 #####
+% ############################################################
+
+\begingroup
+
+% 單行間距
+\renewcommand{\baselinestretch}{1}
+\selectfont
+
+% 摘要段落不縮排
+\setlength{\parindent}{0pt}
+
+% 段落之間不額外增加空白
+\setlength{\parskip}{0pt}
+
+
+% ============================================================
+% 中文論文題目
+% 14 pt、粗體、置中
+% ============================================================
+
+\begin{center}
+
+{\fontsize{14pt}{16pt}\selectfont
+\bfseries
+\zhTitle
+\par}
+
+\vspace{0.5cm}
+
+
+% ============================================================
+% 作者資料
+% 12 pt、標準字、置中
+% ============================================================
+
+{\fontsize{12pt}{14pt}\selectfont
+\normalfont
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\makebox[3.5cm][l]{\large{\authorZhName\footnote[1]{}}}\footnotetext[1]{{學生}} % 學生中文姓名
+%\hfill
+%
+%\makebox[3cm][c]{\large{指導教授：}}
+\makebox[3.5cm][l]{\large{\advisorZhName\footnote[2]{}}}\footnotetext[2]{{指導教授}} \\ %指導教授中文姓名
+
+
+\zhUniv\zhDepartmentName
+\par
+
+}
+
+\vspace{0.5cm}
+
+
+% ============================================================
+% 摘要標題
+% 12 pt、粗體、置中
+% ============================================================
+
+{\fontsize{12pt}{14pt}\selectfont
+\bfseries
+摘要
+\par}
+
+\end{center}
+
+
+\vspace{0.3cm}
+
+
+% ============================================================
+% 中文摘要內文
+% 12 pt、標準字、單行間距、不縮排
+% ============================================================
+
+{\fontsize{12pt}{14pt}\selectfont
+\normalfont
+
+\input{frontpages/front_cabstract.tex}
+
+}
+
+\endgroup
+
+% ############################################################
+% ##### 中文摘要格式結束：後面自動恢復原論文設定 #####
+% ############################################################
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       英文摘要
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+% 英文摘要加入目錄
+\phantomsection
+\addcontentsline{toc}{chapter}{\nameEabstract}
+
+
+% ############################################################
+% ##### 英文摘要格式開始：與中文摘要完全相同 #####
+% ############################################################
+
+\begingroup
+
+% 單行間距
+\renewcommand{\baselinestretch}{1}
+\selectfont
+
+% 摘要段落不縮排
+\setlength{\parindent}{0pt}
+
+% 段落之間不額外增加空白
+\setlength{\parskip}{0pt}
+
+% Times 字型
+\rmfamily
+
+
+% ============================================================
+% 英文論文題目
+% 14 pt、粗體、置中
+% ============================================================
+
+\begin{center}
+
+{\fontsize{14pt}{16pt}\selectfont
+\bfseries
+\enTitle
+\par}
+
+\vspace{0.5cm}
+
+
+% ============================================================
+% 作者資料
+% 12 pt、標準字、置中
+% ============================================================
+
+{\fontsize{12pt}{14pt}\selectfont
+\normalfont
+
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\makebox[5cm][l]{\large{\authorEnName\footnote[1]{}}}\footnotetext[1]{{Student}} % 學生英文姓名
+%\hfill
+%
+%\makebox[2cm][s]{\large{Advisor: }}
+\makebox[5cm][l]{\large{\advisorEnName\footnote[2]{}}}\footnotetext[2]{{Advisor}} \\ %教授英文姓名
+%
+
+\enDepartmentName
+\par
+
+\enUniv
+\par
+
+}
+
+\vspace{0.5cm}
+
+
+% ============================================================
+% ABSTRACT 標題
+% 12 pt、粗體、置中
+% ============================================================
+
+{\fontsize{12pt}{14pt}\selectfont
+\bfseries
+ABSTRACT
+\par}
+
+\end{center}
+
+
+\vspace{0.3cm}
+
+
+% ============================================================
+% 英文摘要內文
+% 12 pt、標準字、單行間距、不縮排
+% ============================================================
+
+{\fontsize{12pt}{14pt}\selectfont
+\normalfont
+
+\input{frontpages/front_eabstract.tex}
+
+}
+
+\endgroup
+
+% ############################################################
+% ##### 英文摘要格式結束：後面自動恢復原論文設定 #####
+% ############################################################
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       誌謝
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Acknowledgment
+\newpage
+\phantomsection % for hyperref to register this
+%\addcontentsline{toc}{chapter}{\nameAcknc}
+
+\begin{zhAckn}  %誌謝
+\input{frontpages/front_ackn} % // 可以引入front_ackn.tex檔案或在此編輯 // cbj
+\end{zhAckn}
+
+%\chapter*{\nameAckn} %\makebox{} is fragile; need protect
+%\input{frontpages/front_ackn} % // 可以引入my_ackn.tex檔案或在此編輯 // cbj
+%%testjsjtoejiojsoijtoijos
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       目錄
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Table of contents
+\newpage
+\renewcommand{\contentsname}{\nameTocc}
+%\makebox{} is fragile; need protect
+\phantomsection % for hyperref to register this
+\addcontentsline{toc}{chapter}{\nameTocc}
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       表目錄
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% List of Tables
+\newpage
+\renewcommand{\listtablename}{\nameLotc}
+%\makebox{} is fragile; need protect
+\phantomsection % for hyperref to register this
+\addcontentsline{toc}{chapter}{\nameLotc}
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       圖目錄
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% List of Figures
+\newpage
+\renewcommand{\listfigurename}{\nameTofc}
+%\makebox{} is fragile; need protect
+\phantomsection % for hyperref to register this
+\addcontentsline{toc}{chapter}{\nameTofc}
+\listoffigures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       符號說明
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Symbol list
+% define new environment, based on standard description environment
+% adapted from p.60~64, <<The LaTeX Companion>>, 1994, ISBN 0-201-54199-8
+
+%\newcommand{\SymEntryLabel}[1]%
+%  {\makebox[3cm][l]{#1}}
+%%
+%\newenvironment{SymEntry}
+%   {\begin{list}{}%
+%       {\renewcommand{\makelabel}{\SymEntryLabel}%
+%        \setlength{\labelwidth}{3cm}%
+%        \setlength{\leftmargin}{\labelwidth}%
+%        }%
+%   }%
+%   {\end{list}}
+%%%
+%\newpage
+%\chapter*{\nameSlist} %\makebox{} is fragile; need protect
+%\phantomsection % for hyperref to register this
+%\addcontentsline{toc}{chapter}{\nameSlistc}
+%\input{frontpages/front_symbols.tex}
+
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}

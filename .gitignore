@@ -1,0 +1,39 @@
+# =========================
+# LaTeX build artifacts
+# =========================
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+
+# Other common LaTeX temporary files
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.glg
+*.glo
+*.gls
+*.ist
+*.acn
+*.acr
+*.alg
+*.run.xml
+*.bcf
+
+# Temporary / backup files
+*.bak
+*.tmp
+*~
+*.swp
