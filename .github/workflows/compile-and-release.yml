@@ -1,0 +1,47 @@
+name: Compile LaTeX and Create Release
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '**.tex'
+      - '**.bib'
+      - '**.sh'
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 修正：改用 Docker Hub 官方 100% 免登入公開的 TeX Live 映像檔
+      - name: Run local compile script
+        uses: addnab/docker-run-action@v3
+        with:
+          image: texlive/texlive:latest # 👈 改為此官方路徑
+          options: -v ${{ github.workspace }}:/work -w /work
+          run: |
+            chmod +x ./run.sh
+            ./run.sh compile
+
+      - name: Prepare build directory
+        run: |
+          mkdir -p build
+          mv *.pdf build/
+
+      - name: Create or Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: pdf-builds
+          name: "Latest PDF Build"
+          body: "Automated release compiled via run.sh."
+          draft: false
+          prerelease: false
+          files: build/*.pdf
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

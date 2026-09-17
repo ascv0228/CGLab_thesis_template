@@ -37,3 +37,10 @@
 *.tmp
 *~
 *.swp
+
+
+/*.pdf
+/build/*
+
+/toc.txt
+/ref.txt

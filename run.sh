@@ -4,61 +4,50 @@ MAIN=main.tex
 BASENAME="paper_huang"
 
 compile_release() {
-    echo "===== Compile Release ====="
-
-    latexmk \
-        -pdf \
-        -interaction=nonstopmode \
+    echo "===== Compile Release (Clear) Start ====="
+    latexmk -pdf -bibtex -f \
         -silent \
+        -interaction=nonstopmode \
         -synctex=1 \
+        -outdir=out_clear \
         -jobname="${BASENAME}_clear" \
         "$MAIN"
-
-    latexmk \
-        -pdf \
-        -interaction=nonstopmode \
-        -silent \
-        -synctex=1 \
-        -jobname="${BASENAME}_clear" \
-        "$MAIN"
+    mv out_clear/${BASENAME}_clear.pdf ./ 2>/dev/null || true
 }
 
 compile_watermark() {
-    echo "===== Compile Watermark ====="
-
-    latexmk \
-        -pdf \
-        -interaction=nonstopmode \
+    echo "===== Compile Watermark Start ====="
+    latexmk -pdf -bibtex -f \
         -silent \
+        -interaction=nonstopmode \
         -synctex=1 \
+        -outdir=out_watermark \
         -jobname="${BASENAME}" \
         -pdflatex="pdflatex %O '\def\enablewatermark{}\input{%S}'" \
         "$MAIN"
-
-    latexmk \
-        -pdf \
-        -interaction=nonstopmode \
-        -silent \
-        -synctex=1 \
-        -jobname="${BASENAME}" \
-        -pdflatex="pdflatex %O '\def\enablewatermark{}\input{%S}'" \
-        "$MAIN"
+    mv out_watermark/${BASENAME}.pdf ./ 2>/dev/null || true
 }
 
 compile() {
-    compile_release
-    compile_watermark
-    echo ""
-    echo "Done."
-    echo "Generated:"
-    echo "  ${BASENAME}.pdf"
-    echo "  ${BASENAME}_clear.pdf"
+    compile_release &
+    PID_RELEASE=$!
+
+    compile_watermark &
+    PID_WATERMARK=$!
+
+    wait $PID_RELEASE $PID_WATERMARK
+    echo "===== All Compilations Finished! ====="
 }
 
 clean() {
-    latexmk -C
-    rm -f ${BASENAME}.*
-    rm -f ${BASENAME}_clear.*
+    echo "===== Cleaning output directories and files ====="
+    latexmk -C -outdir=out_clear -jobname="${BASENAME}_clear" "$MAIN" 2>/dev/null || true
+    latexmk -C -outdir=out_watermark -jobname="${BASENAME}" "$MAIN" 2>/dev/null || true
+
+    rm -rf out_clear out_watermark
+    rm -f ${BASENAME}.* ${BASENAME}_clear.*
+    
+    echo "Clean finished."
 }
 
 if [ $# -eq 0 ]; then
