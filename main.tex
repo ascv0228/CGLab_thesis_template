@@ -4,6 +4,9 @@
 %%
 \documentclass[12pt, a4paper]{class/ncku_class} % 修正了 p a4paper 錯字
 
+%================================================================
+% �� pdfLaTeX 專用：徹底消滅 Turnitin「癩癦瘺」亂碼字庫與斷字設定
+%================================================================
 \usepackage{cmap}            % 必須在最前面，建立正確的 Unicode 映射表
 \usepackage[T1]{fontenc}     % 解決英文母音 e、i 斷開的關鍵編碼
 \usepackage{times}           % 使用標準 Times 字型，防止編碼被 CJK 污染
@@ -61,6 +64,7 @@
 
 
 \input{header/header_footer.tex}
+\input{header/ncku_definitions.tex} % 主標題名稱定義 // 摘要 (Abstract), ... 等 // cbj
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% 非必要的套件，但很實用
@@ -126,11 +130,12 @@ columns=flexible
 \usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage{caption}
-
+%================================================================
 %%================================================================
 %% 正文開始
 %%================================================================
 \begin{document}
+
 \begin{CJK}{UTF8}{bkai}   %%% ZZZ %%%  恢復標楷體環境
 
 \ifx\myworkflow\mydvipdfmxflow
@@ -144,7 +149,6 @@ columns=flexible
 \CJKindent  %%% ZZZ %%%  段首內縮兩格
 
 % 載入中文名詞的定義：例如，Figure -->「圖」, Chapter -->「第 x 章」
-\input{header/ncku_definitions.tex} % 主標題名稱定義 // 摘要 (Abstract), ... 等 // cbj
 
 %%% 以下是載入前頁、本文、後頁
 \input{frontpages/ncku_frontpages.tex}
